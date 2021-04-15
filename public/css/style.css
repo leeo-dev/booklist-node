@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 body{
     background: -webkit-linear-gradient(left, #0072ff, #00c6ff);
 }
@@ -6,7 +9,21 @@ body{
     margin-top: 10%;
     margin-bottom: 5%;
     width: 70%;
+    border-radius: 8px;
 }
+.btnCreate{
+    color: #fff;
+    background: -webkit-linear-gradient(left, #0072ff, #00c6ff);
+    padding: 16px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.table{
+    margin-top: 20px;
+}
+
 .contact-form .form-control{
     border-radius:1rem;
 }
@@ -65,4 +82,13 @@ body{
     background-color: #0062cc;
     border: none;
     cursor: pointer;
+}
+
+.actions{
+    display: flex;
+    align-items: center;
+}
+
+.actions form{
+    padding: 5%;
 }

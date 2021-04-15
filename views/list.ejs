@@ -1,0 +1,63 @@
+<%- include("partials/header") %>
+  <div class="container contact-form">
+
+
+    <table class="table">
+      <hr>
+      <a class="btnCreate" href="/"> + Create</a>
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">ISBN</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% books.forEach(book=> {%>
+
+          <tr>
+            <th scope="row">
+              <%= book.id %>
+            </th>
+            <td>
+              <%= book.title %>
+            </td>
+            <td>
+              <%= book.author %>
+            </td>
+            <td>
+              <%= book.isbn %>
+            </td>
+            <td class="actions">
+              <form method="POST" style="display: inline;" action="/book/edit">
+                <input type="hidden" name="id" value="<%= book.id %>">
+                <button type="submit" class="btn btn-outline-primary">Edit</button>
+              </form>
+
+              <form id="formDelete" method="POST" style="display: inline;" action="/book/delete">
+                <input type="hidden" name="id" value="<%= book.id %>">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }); %>
+
+
+      </tbody>
+    </table>
+  </div>
+  <%- include("partials/footer") %>
+    <script>
+      let formsDelete = document.querySelectorAll("#formDelete");
+      formsDelete.forEach((formDelete) => {
+        formDelete.addEventListener("submit", (event) => {
+          event.preventDefault();
+          let choose = confirm("Deseja excluir esse livro?");
+          if (choose) {
+            formDelete.submit();
+          }
+        });
+      })
+    </script>
