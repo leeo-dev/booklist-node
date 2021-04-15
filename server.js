@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const connection = require("./database/database");
 const BooksController = require("./Books/BookController");
+const Books = require("./Books/Book");
 
 const server = express();
 server.set('view engine', 'ejs'); 
@@ -20,7 +21,9 @@ server.use(express.json());
 server.use("/", BooksController);
 
 server.get("/", (request, response)=>{
-  response.render("book/index");
+  Books.findAll().then((books)=>{
+    response.render("book/list", {books});
+  });
 });
 
 server.listen(3000, ()=>{

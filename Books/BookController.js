@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Book = require("./Book");
 
-router.get("/books", (request, response)=>{
-  Book.findAll().then((books)=>{
-  response.render("book/list", {books});
-  });
+
+
+router.get("/book/create", (request, response)=>{
+  response.render("book/index");
 });
 
 router.post("/book/save", (request, response)=>{
@@ -15,17 +15,15 @@ router.post("/book/save", (request, response)=>{
 
   if(title && author && isbn){
     Book.create({title, author, isbn});
-    response.redirect("/books");
-  }else{
-    response.redirect("/");
   }
+    response.redirect("/");
 });
 
 router.post("/book/delete", (request, response)=>{
   let id = +request.body.id;
   if(!isNaN(id) && id !== undefined){
     Book.destroy({where: {id}}).then(()=>{
-      response.redirect("/books");
+      response.redirect("/");
     })
   }
 })
@@ -38,14 +36,14 @@ router.get("/book/edit/:id", (request, response)=>{
       if(book != undefined){
         response.render("book/edit", {book});
       }else{
-        response.redirect("/books");
+        response.redirect("/");
       }
     }).catch((error)=>{
       response.redirect("/");
     });
     
   }else{
-    response.redirect("/books");
+    response.redirect("/");
   }
 });
 
@@ -55,7 +53,8 @@ router.post("/book/update", (request, response)=>{
   let author = request.body.author;
   let isbn = request.body.isbn;
 
-  response.json({id, title, author, isbn});
+  Book.update({title, author, isbn}, {where: {id}}).then(()=>{response.redirect("/");});
+
 });
 
 module.exports = router;
