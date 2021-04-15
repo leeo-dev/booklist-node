@@ -4,7 +4,7 @@ const Book = require("./Book");
 
 router.get("/books", (request, response)=>{
   Book.findAll().then((books)=>{
-  response.render("list", {books});
+  response.render("book/list", {books});
   });
 });
 
@@ -29,5 +29,33 @@ router.post("/book/delete", (request, response)=>{
     })
   }
 })
+
+
+router.get("/book/edit/:id", (request, response)=>{
+  let id = request.params.id;
+  if(!isNaN(id)){
+    Book.findByPk(id).then((book)=>{
+      if(book != undefined){
+        response.render("book/edit", {book});
+      }else{
+        response.redirect("/books");
+      }
+    }).catch((error)=>{
+      response.redirect("/");
+    });
+    
+  }else{
+    response.redirect("/books");
+  }
+});
+
+router.post("/book/update", (request, response)=>{
+  let id = request.body.id;
+  let title = request.body.title;
+  let author = request.body.author;
+  let isbn = request.body.isbn;
+
+  response.json({id, title, author, isbn});
+});
 
 module.exports = router;

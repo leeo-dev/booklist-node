@@ -1,4 +1,4 @@
-<%- include("partials/header") %>
+<%- include("../partials/header") %>
   <div class="container contact-form">
 
 
@@ -31,10 +31,7 @@
               <%= book.isbn %>
             </td>
             <td class="actions">
-              <form method="POST" style="display: inline;" action="/book/edit">
-                <input type="hidden" name="id" value="<%= book.id %>">
-                <button type="submit" class="btn btn-outline-primary">Edit</button>
-              </form>
+              <a href="/book/edit/<%= book.id %>" type="submit" class="btn btn-outline-primary">Edit</a>
 
               <form id="formDelete" method="POST" style="display: inline;" action="/book/delete">
                 <input type="hidden" name="id" value="<%= book.id %>">
@@ -48,7 +45,7 @@
       </tbody>
     </table>
   </div>
-  <%- include("partials/footer") %>
+  <%- include("../partials/footer") %>
     <script>
       let formsDelete = document.querySelectorAll("#formDelete");
       formsDelete.forEach((formDelete) => {

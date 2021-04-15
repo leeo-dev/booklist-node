@@ -20,7 +20,7 @@ server.use(express.json());
 server.use("/", BooksController);
 
 server.get("/", (request, response)=>{
-  response.render("index");
+  response.render("book/index");
 });
 
 server.listen(3000, ()=>{
